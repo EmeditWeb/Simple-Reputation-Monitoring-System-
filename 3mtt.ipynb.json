@@ -1,0 +1,181 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "31801578",
+   "metadata": {
+    "height": 30
+   },
+   "source": [
+    "### Name : Emmanuel Itighise\n",
+    "FellowID : FE/23/44778000\n",
+    "\n",
+    "Cohort 3"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "378928da",
+   "metadata": {
+    "height": 30
+   },
+   "source": [
+    "##  Reputation monitoring system"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fc1cf4e0",
+   "metadata": {
+    "height": 30
+   },
+   "source": [
+    "I will be showcasing a simple project in the AI-Powered Category, where I will set up an AI program environment to build a *Reputation Monitoring System*. This system will function by sending prompts to OpenAI's *pre-trained, open-source large language model (LLM)* to analyze and monitor reputation metrics effectively"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "73543738",
+   "metadata": {
+    "height": 30
+   },
+   "source": [
+    "## Setup Environment with OpenAI LLM"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b28a854f",
+   "metadata": {
+    "height": 183
+   },
+   "outputs": [],
+   "source": [
+    "import openai\n",
+    "import os \n",
+    "openai.api_key = os.getenv(\"OPENAI_API_KEY\")\n",
+    "def llm_response(prompt):\n",
+    "    response = openai.ChatCompletion.create(\n",
+    "        model='gpt-3.5-turbo',\n",
+    "        messages=[{'role':'user','content':prompt}],\n",
+    "        temperature=0\n",
+    "    )\n",
+    "    return response.choices[0].message['content']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1760997d",
+   "metadata": {
+    "height": 30
+   },
+   "source": [
+    "### Reviews collected from 3mtt Learners"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2d60cf23",
+   "metadata": {
+    "height": 149
+   },
+   "outputs": [],
+   "source": [
+    "all_reviews = [\n",
+    "    'The Darey io site has been lagging of recent!',\n",
+    "    'The 3mtt Program has been insightful since I joined.',\n",
+    "    'I did not receive the MTN data shared to my 3mtt colleagues .',\n",
+    "    'The Darey io Data Science Tutor has been superb so far!',\n",
+    "    'Glo Network has been bad of recent and it\\'s affecting my learning.'\n",
+    "]\n",
+    "all_reviews"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ed4934b7",
+   "metadata": {
+    "height": 30
+   },
+   "source": [
+    "### Setup Prompt Logic to classify Reviews "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3a12333d",
+   "metadata": {
+    "height": 234
+   },
+   "outputs": [],
+   "source": [
+    "all_sentiments = []\n",
+    "for review in all_reviews:\n",
+    "    prompt = f'''\n",
+    "        Classify the following review\n",
+    "        as having either a positive or\n",
+    "        negative sentiment. State your answer\n",
+    "        as a single word, either \"positive\" or\n",
+    "        \"negative\":\n",
+    "        {review}\n",
+    "        '''\n",
+    "    response = llm_response(prompt)\n",
+    "    all_sentiments.append(response)\n",
+    "all_sentiments"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "51c1bb26",
+   "metadata": {
+    "height": 30
+   },
+   "source": [
+    "### Sentiment breakdown "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "bad19319",
+   "metadata": {
+    "height": 149
+   },
+   "outputs": [],
+   "source": [
+    "num_positive = 0\n",
+    "num_negative = 0\n",
+    "for sentiment in all_sentiments:\n",
+    "    if sentiment == 'positive':\n",
+    "        num_positive += 1\n",
+    "    elif sentiment == 'negative':\n",
+    "        num_negative += 1\n",
+    "print(f\"There are {num_positive} positive and {num_negative} negative reviews.\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.19"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
