@@ -11,4 +11,9 @@ This project showcases how *AI can automate review classification* without exten
 - Uses generative AI for *scalable and adaptable* review processing.
 - Demonstrates AI's ability to *streamline workflows* in reputation monitoring.
 
+## Watch Software in Action
+
+Check out the demonstration here: [Watch on Loom](https://www.loom.com/share/9fc349452cee4edba30e2b0edff3026a)
+
+
 This serves as an example of AI's power in *automating, optimizing, and simplifying tasks* within competitive environments.
